@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/mukeshyadav-devops/devops-nginx-ci-cd.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t nginx-ci-cd .'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                sh '''
+                docker rm -f nginx-app || true
+                docker run -d -p 8080:80 --name nginx-app nginx-ci-cd
+                '''
+            }
+        }
+    }
+}
+
