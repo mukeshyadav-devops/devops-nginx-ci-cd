@@ -11,8 +11,8 @@ pipeline {
         stage('Run Container') {
             steps {
                 sh '''
-                sudo docker rm -f nginx-app || true
-                sudo docker run -d -p 8081:80 --name nginx-app nginx-ci-cd
+                docker ps -aq --filter "name=nginx-app" | xargs -r docker rm -f
+                docker run -d -p 8081:80 --name nginx-app nginx-ci-cd
                 '''
             }
         }
