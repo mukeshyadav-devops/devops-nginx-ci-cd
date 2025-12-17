@@ -12,7 +12,7 @@ pipeline {
             steps {
                 sh '''
                 docker rm -f nginx-app || true
-                docker run -d -p 8080:80 --name nginx-app nginx-ci-cd
+                docker run -d -p 8081:80 --name nginx-app nginx-ci-cd
                 '''
             }
         }
